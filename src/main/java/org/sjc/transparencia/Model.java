@@ -1,0 +1,36 @@
+package org.sjc.transparencia;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+public interface Model {
+    UUID createPost(String title, String content, List categories);
+
+    UUID createComment(UUID post, String author, String content);
+
+    List getAllPosts();
+
+    List getAllCommentsOn(UUID post);
+
+    boolean existPost(UUID post);
+}
+
+@Data
+public class Post {
+    private UUID post_uuid;
+    private String title;
+    private String content;
+    private Date publishing_date;
+    private List categories;
+}
+
+@Data
+public class Comment {
+    UUID comment_uuid;
+    UUID post_uuid;
+    String author;
+    String content;
+    Boolean approved;
+    Date submission_date;
+}
