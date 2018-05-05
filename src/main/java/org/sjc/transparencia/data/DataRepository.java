@@ -5,11 +5,11 @@ public class DataRepository {
     private String mes;
     private Integer ano;
 
-    public Integer getData_id() {
+    public Integer getDataId() {
         return data_id;
     }
 
-    public void setData_id(Integer data_id) {
+    public void setDataId(Integer data_id) {
         this.data_id = data_id;
     }
 
