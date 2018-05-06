@@ -21,23 +21,23 @@ public class DataDaoTest {
     public void setUp() {
         this.dataDao = new DataDao();
         this.data = new Data(dataUuid, 01, 2018);
-        this.dataDao.insertData(this.data);
+        this.dataDao.insert(this.data);
     }
 
     @After
     public void apagaData() {
-        this.dataDao.removeData(this.data.getData_uuid());
+        this.dataDao.delete(this.data.getData_uuid());
     }
 
     @Test
     public void insereDatas() {
-        this.dataDao.removeData(this.data.getData_uuid());
-        assertTrue(this.dataDao.insertData(this.data) != null);
+        this.dataDao.delete(this.data.getData_uuid());
+        assertTrue(this.dataDao.insert(this.data) != null);
     }
 
     @Test
     public void pagaTodosDados() {
-        assertTrue(this.dataDao.retrieveAllData() != null);
+        assertTrue(this.dataDao.retrieveAll() != null);
     }
 
     @Test
@@ -59,11 +59,11 @@ public class DataDaoTest {
 
     @Test
     public void pegaData() {
-        assertTrue(this.dataDao.retrieveData(data) != null);
+        assertTrue(this.dataDao.retrieve(data) != null);
     }
 
     @Test
     public void apagaDatas() {
-        assertTrue(this.dataDao.removeData(this.data.getData_uuid()));
+        assertTrue(this.dataDao.delete(this.data.getData_uuid()));
     }
 }

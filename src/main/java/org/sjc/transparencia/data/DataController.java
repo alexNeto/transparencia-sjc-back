@@ -16,8 +16,8 @@ public class DataController {
 
         get("/data/:mes:ano", (req, res) -> {
             Data data = new Data(null, parseInt(req.params("mes")), parseInt(req.params("ano")));
-            return dataDao.retrieveData(data);
+            return dataDao.retrieve(data);
         });
-        get("/data", (req, res) -> dataDao.retrieveAllData());
+        get("/data", (req, res) -> dataDao.retrieveAll());
     }
 }

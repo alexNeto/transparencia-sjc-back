@@ -36,7 +36,10 @@ public class Main {
     }
 
     public static void apply() {
-        Filter filter = (request, response) -> corsHeaders.forEach(response::header);
+        Filter filter = (request, response) -> {
+            response.type("application/json");
+            corsHeaders.forEach(response::header);
+        };
         Spark.after(filter);
     }
 }

@@ -16,47 +16,43 @@ public class DataDao {
         this.connection = Dao.getConnection();
     }
 
-    public List<Data> retrieveAllData() {
+    public List<Data> retrieveAll() {
         try (Connection conn = connection.open()) {
-            List<Data> dataList = conn.createQuery("select * from data")
+            return conn.createQuery("select * from data")
                     .executeAndFetch(Data.class);
-            return dataList;
         }
     }
 
     public List<Data> retrieveByYear(Integer ano) {
         try (Connection conn = connection.open()) {
-            List<Data> datas = conn.createQuery("select * from data where ano=:ano")
+            return conn.createQuery("select * from data where ano=:ano")
                     .addParameter("ano", ano)
                     .executeAndFetch(Data.class);
-            return datas;
         }
     }
 
     public Data retrieveByUuid(UUID dataUuid) {
         try (Connection conn = connection.open()) {
-            List<Data> datas = conn.createQuery("select * from data where data_uuid=:data_uuid")
+            return conn.createQuery("select * from data where data_uuid=:data_uuid")
                     .addParameter("data_uuid", dataUuid)
-                    .executeAndFetch(Data.class);
-            return datas.get(0);
+                    .executeAndFetch(Data.class).get(0);
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }
 
-    public Data retrieveData(Data data) {
+    public Data retrieve(Data data) {
         try (Connection conn = connection.open()) {
-            List<Data> datas = conn.createQuery("select * from data where mes=:mes and ano=:ano")
+            return conn.createQuery("select * from data where mes=:mes and ano=:ano")
                     .addParameter("mes", data.getMes())
                     .addParameter("ano", data.getAno())
-                    .executeAndFetch(Data.class);
-            return datas.get(0);
+                    .executeAndFetch(Data.class).get(0);
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }
 
-    public UUID insertData(Data data) {
+    public UUID insert(Data data) {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("insert into data");
         queryBuilder.append("(data_uuid, mes, ano) ");
@@ -74,7 +70,7 @@ public class DataDao {
         }
     }
 
-    public Boolean removeData(UUID dataUuid) {
+    public Boolean delete(UUID dataUuid) {
         try (Connection conn = connection.open()) {
             conn.createQuery("delete from data where data_uuid=:data_uuid")
                     .addParameter("data_uuid", dataUuid)
