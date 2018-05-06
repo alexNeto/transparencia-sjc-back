@@ -10,6 +10,7 @@ services:
 
 before_script:
   - psql -c 'create database transparencia_development;' -U postgres
+  - psql -c '\c transparencia_development; \i database-definition.sql'
 
 after_success:
 - mvn clean test jacoco:report coveralls:report

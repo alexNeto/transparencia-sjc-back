@@ -1,10 +1,23 @@
 package org.sjc.transparencia.data;
 
-import static spark.Spark.get;
+import static java.lang.Integer.parseInt;
+import static spark.Spark.*;
 
 public class DataController {
 
-    public void dataController(){
-        get("/", (req, res) -> "all good");
+    private DataDao dataDao;
+
+    public DataController() {
+        this.dataDao = new DataDao();
+    }
+
+    public void data() {
+        get("/data/ano=:ano", (req, res) -> dataDao.retrieveByYear(parseInt(req.params("ano"))));
+
+        get("/data/:mes:ano", (req, res) -> {
+            Data data = new Data(null, parseInt(req.params("mes")), parseInt(req.params("ano")));
+            return dataDao.retrieveData(data);
+        });
+        get("/data", (req, res) -> dataDao.retrieveAllData());
     }
 }

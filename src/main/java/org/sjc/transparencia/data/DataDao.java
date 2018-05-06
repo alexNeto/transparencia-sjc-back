@@ -18,9 +18,9 @@ public class DataDao {
 
     public List<Data> retrieveAllData() {
         try (Connection conn = connection.open()) {
-            List<Data> datas = conn.createQuery("select * from data")
+            List<Data> dataList = conn.createQuery("select * from data")
                     .executeAndFetch(Data.class);
-            return datas;
+            return dataList;
         }
     }
 
@@ -44,13 +44,13 @@ public class DataDao {
         }
     }
 
-    public UUID retrieveDataUuid(Data data) {
+    public Data retrieveData(Data data) {
         try (Connection conn = connection.open()) {
             List<Data> datas = conn.createQuery("select * from data where mes=:mes and ano=:ano")
                     .addParameter("mes", data.getMes())
                     .addParameter("ano", data.getAno())
                     .executeAndFetch(Data.class);
-            return datas.get(0).getData_uuid();
+            return datas.get(0);
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
@@ -77,7 +77,8 @@ public class DataDao {
     public Boolean removeData(UUID dataUuid) {
         try (Connection conn = connection.open()) {
             conn.createQuery("delete from data where data_uuid=:data_uuid")
-                    .addParameter("data_uuid", dataUuid);
+                    .addParameter("data_uuid", dataUuid)
+                    .executeUpdate();
             return true;
         } catch (Sql2oException e) {
             return false;

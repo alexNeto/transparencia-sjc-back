@@ -1,20 +1,21 @@
 package org.sjc.transparencia;
 
+import org.sjc.transparencia.data.DataController;
 import spark.Filter;
-import spark.Request;
-import spark.Response;
 import spark.Spark;
 
 import java.util.HashMap;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.port;
 
 public class Main {
 
-    public static void main() {
+    public static void main(String[] args) {
         port(getHerokuAssignedPort());
         apply();
         get("/", (req, res) -> "all good");
+        new DataController().data();
     }
 
     public static int getHerokuAssignedPort() {
@@ -34,7 +35,7 @@ public class Main {
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
     }
 
-    public final static void apply() {
+    public static void apply() {
         Filter filter = (request, response) -> corsHeaders.forEach(response::header);
         Spark.after(filter);
     }

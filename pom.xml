@@ -16,18 +16,10 @@
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <project.build.directory>/target</project.build.directory>
         <project.reporting.outputDirectory>/</project.reporting.outputDirectory>
+        <kotlin.version>1.2.41</kotlin.version>
     </properties>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -44,7 +36,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.ts.previsao.tempo.Main</mainClass>
+                            <mainClass>org.sjc.transparencia.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -68,6 +60,31 @@
                 <version>4.3.0</version>
                 <configuration>
                     <repoToken>${env.coveralls_token}</repoToken>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
