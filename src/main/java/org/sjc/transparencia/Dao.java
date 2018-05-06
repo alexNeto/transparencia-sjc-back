@@ -4,12 +4,10 @@ import org.sql2o.Sql2o;
 import org.sql2o.converters.UUIDConverter;
 import org.sql2o.quirks.PostgresQuirks;
 
-import java.sql.Connection;
 import java.util.UUID;
 
 public class Dao {
 
-    private static Connection conn;
     private static Sql2o connection;
 
 

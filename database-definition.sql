@@ -1,6 +1,6 @@
 create table if not exists data (
     data_uuid uuid primary key,
-    mes text not null,
+    mes integer not null,
     ano integer not null
 );
 

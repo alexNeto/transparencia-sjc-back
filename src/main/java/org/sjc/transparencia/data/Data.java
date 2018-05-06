@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Data {
     private UUID data_uuid;
-    private String mes;
+    private Integer mes;
     private Integer ano;
 
     public UUID getData_uuid() {
@@ -15,11 +15,11 @@ public class Data {
         this.data_uuid = data_uuid;
     }
 
-    public String getMes() {
+    public Integer getMes() {
         return mes;
     }
 
-    public void setMes(String mes) {
+    public void setMes(Integer mes) {
         this.mes = mes;
     }
 
