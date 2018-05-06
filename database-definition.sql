@@ -1,24 +1,34 @@
-CREATE TABLE data (
-    data_id         SERIAL  PRIMARY KEY,
-    mes             TEXT    NOT NULL,
-    ano             INTEGER NOT NULL
+create table if not exists data (
+    data_uuid uuid primary key,
+    mes text not null,
+    ano integer not null
 );
 
-CREATE TABLE funcionario (
-    funcionario_id  SERIAL  PRIMARY KEY,
-    data_id         INTEGER  REFERENCES data (data_id),
-    nome            TEXT    NOT NULL,
-    cargo           TEXT    NOT NULL,
-    salario_base    NUMERIC NOT NULL,
-    plano_carreira  NUMERIC NOT NULL,
-    gratificacao    NUMERIC NOT NULL,
-    beneficio       NUMERIC NOT NULL,
-    abono           NUMERIC NOT NULL,
-    adiantamento    NUMERIC NOT NULL,
-    ferias          NUMERIC NOT NULL,
-    decimo_terceiro NUMERIC NOT NULL,
-    abatimento      NUMERIC NOT NULL,
-    descontos       NUMERIC NOT NULL,
-    salario_bruto   NUMERIC NOT NULL,
-    salario_liquido NUMERIC NOT NULL
+create table if not exists cargo (
+    cargo_uuid uuid primary key,
+    cargo text
+);
+
+create table if not exists salario (
+    salario_uuid uuid primary key,
+    salario_base numeric,
+    plano_carreira numeric,
+    gratificacao numeric,
+    beneficio numeric,
+    abono numeric,
+    adiantamento numeric,
+    ferias numeric,
+    decimo_terceiro numeric,
+    abatimento numeric,
+    descontos numeric,
+    salario_bruto numeric,
+    salario_liquido numeric
+);
+
+create table if not exists funcionario (
+    funcionario_uuid uuid primary key,
+    data_uuid uuid references data (data_uuid),
+    cargo_uuid uuid references cargo (cargo_uuid),
+    salario_uuid uuid references salario (salario_uuid),
+    nome text not null
 );

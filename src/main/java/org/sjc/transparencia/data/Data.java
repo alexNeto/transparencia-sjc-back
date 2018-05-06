@@ -1,16 +1,18 @@
 package org.sjc.transparencia.data;
 
-public class DataRepository {
-    private Integer data_id;
+import java.util.UUID;
+
+public class Data {
+    private UUID data_uuid;
     private String mes;
     private Integer ano;
 
-    public Integer getDataId() {
-        return data_id;
+    public UUID getData_uuid() {
+        return data_uuid;
     }
 
-    public void setDataId(Integer data_id) {
-        this.data_id = data_id;
+    public void setData_uuid(UUID data_uuid) {
+        this.data_uuid = data_uuid;
     }
 
     public String getMes() {

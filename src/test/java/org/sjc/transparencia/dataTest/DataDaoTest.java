@@ -16,7 +16,12 @@ public class DataDaoTest {
     }
 
     @Test
-    public void testa_se_pega_dados_do_banco() {
-        assertTrue(this.dataDao.retrieveAllData() == null);
+    public void pagaTodosDados() {
+        assertTrue(this.dataDao.retrieveAllData() != null);
+    }
+
+    @Test
+    public void pagaTodosDadosPorAno() {
+        assertTrue(this.dataDao.retrieveByYear(2018) != null);
     }
 }
