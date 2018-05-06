@@ -1,6 +1,7 @@
 package org.sjc.transparencia.dataTest;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.sjc.transparencia.data.Data;
@@ -8,6 +9,7 @@ import org.sjc.transparencia.data.DataDao;
 
 import java.util.UUID;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DataDaoTest {
@@ -23,16 +25,10 @@ public class DataDaoTest {
         data.setData_uuid(dataUuid);
         data.setMes(01);
         data.setAno(2018);
-        this.dataDao.insertData(this.data);
-    }
-
-    @After
-    public void tearDown(){
-        this.dataDao.removeData(data.getData_uuid());
     }
 
     @Test
-    public void insereDatas(){
+    public void insereDatas() {
         assertTrue(this.dataDao.insertData(this.data) != null);
     }
 
@@ -48,11 +44,14 @@ public class DataDaoTest {
 
     @Test
     public void pegaDadosPorUuid() {
-        assertTrue(this.dataDao.retrieveByUuid(this.data.getData_uuid()) != null);
+        this.dataDao.insertData(this.data);
+        Data data = this.dataDao.retrieveByUuid(this.data.getData_uuid());
+        assertEquals(this.data.getMes(), data.getMes());
+        assertEquals(this.data.getAno(), data.getAno());
     }
 
     @Test
-    public void naoPegaPorUuidInexistentes(){
+    public void naoPegaPorUuidInexistentes() {
         assertTrue(this.dataDao.retrieveByUuid(UUID.randomUUID()) == null);
     }
 
@@ -62,7 +61,8 @@ public class DataDaoTest {
     }
 
     @Test
-    public void apagaDatas(){
-        assertTrue(this.dataDao.removeData(data.getData_uuid()));
+    public void apagaDatas() {
+        this.dataDao.insertData(this.data);
+        assertTrue(this.dataDao.removeData(this.data.getData_uuid()));
     }
 }

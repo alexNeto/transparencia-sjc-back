@@ -13,7 +13,7 @@ public class Dao {
 
     public static Sql2o connect() {
         connection = new Sql2o("jdbc:postgresql://localhost:5432/transparencia_development",
-                "transparencia", "postgres123", new PostgresQuirks() {
+                "postgres", "", new PostgresQuirks() {
             {
                 converters.put(UUID.class, new UUIDConverter());
             }

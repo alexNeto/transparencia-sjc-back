@@ -76,9 +76,8 @@ public class DataDao {
 
     public Boolean removeData(UUID dataUuid) {
         try (Connection conn = connection.open()) {
-            List<Data> datas = conn.createQuery("delete from data where data_uuid=:data_uuid")
-                    .addParameter("data_uuid", dataUuid)
-                    .executeAndFetch(Data.class);
+            conn.createQuery("delete from data where data_uuid=:data_uuid")
+                    .addParameter("data_uuid", dataUuid);
             return true;
         } catch (Sql2oException e) {
             return false;
