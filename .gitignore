@@ -51,3 +51,9 @@ fabric.properties
 .idea/httpRequests
 
 /target/*
+
+
+Comment.java
+DBModel.java
+Post.java
+Sql2oModel.java

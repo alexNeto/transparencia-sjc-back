@@ -1,18 +1,32 @@
 package org.sjc.transparencia;
 
 import org.sql2o.Sql2o;
+import org.sql2o.converters.UUIDConverter;
+import org.sql2o.quirks.PostgresQuirks;
+
+import java.sql.Connection;
+import java.util.UUID;
 
 public class Dao {
 
-    private static Sql2o sql2o;
+    private static Connection conn;
+    private static Sql2o connection;
 
-    public Dao() {
-        if (sql2o == null) {
-            sql2o = new Sql2o("jdbc:postgres://localhost:5432/transparencia_development", "trnsparencia", "postgres123");
-        }
+
+    public static Sql2o connect() {
+        connection = new Sql2o("jdbc:postgresql://localhost:5432/transparencia_development",
+                "trnsparencia", "postgres123", new PostgresQuirks() {
+            {
+                converters.put(UUID.class, new UUIDConverter());
+            }
+        });
+        return connection;
     }
 
-    public Sql2o getDao() {
-        return sql2o;
+    public static Sql2o getConnection() {
+        if (connection == null) {
+            connection = connect();
+        }
+        return connection;
     }
 }

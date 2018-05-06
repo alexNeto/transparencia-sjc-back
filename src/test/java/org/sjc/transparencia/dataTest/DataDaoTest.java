@@ -13,7 +13,6 @@ public class DataDaoTest {
     @Before
     public void setUp() {
         this.dataDao = new DataDao();
-
     }
 
     @Test

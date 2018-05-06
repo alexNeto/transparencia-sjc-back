@@ -4,9 +4,7 @@ import java.util.List;
 
 public class DataDao {
 
-
     public List<DataRepository> retrieveAllData() {
-        // TODO - implements
         return null;
     }
 
