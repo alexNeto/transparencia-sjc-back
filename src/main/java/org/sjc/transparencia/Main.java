@@ -1,5 +1,6 @@
 package org.sjc.transparencia;
 
+import org.sjc.transparencia.cargo.CargoController;
 import org.sjc.transparencia.data.DataController;
 import spark.Filter;
 import spark.Spark;
@@ -16,6 +17,7 @@ public class Main {
         apply();
         get("/", (req, res) -> "all good");
         new DataController().data();
+        new CargoController().cargo();
     }
 
     public static int getHerokuAssignedPort() {
