@@ -1,7 +1,7 @@
 package org.sjc.transparencia.cargo;
 
 import org.sjc.transparencia.Dao;
-import org.sjc.transparencia.data.Data;
+import org.sjc.transparencia.Model;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -9,13 +9,14 @@ import org.sql2o.Sql2oException;
 import java.util.List;
 import java.util.UUID;
 
-public class CargoDao {
+public class CargoDao implements Model<Cargo> {
     private Sql2o connection;
 
     public CargoDao() {
         this.connection = Dao.getConnection();
     }
 
+    @Override
     public List<Cargo> retrieveAll() {
         try (Connection conn = connection.open()) {
             return conn.createQuery("select * from cargo")
@@ -23,16 +24,29 @@ public class CargoDao {
         }
     }
 
-    public Cargo retrieveByUuid(UUID cargoUuid) {
+    @Override
+    public Cargo retrieveByUuid(UUID uuid) {
         try (Connection conn = connection.open()) {
             return conn.createQuery("select * from cargo where cargo_uuid=:cargo_uuid")
-                    .addParameter("cargo_uuid", cargoUuid)
+                    .addParameter("cargo_uuid", uuid)
                     .executeAndFetch(Cargo.class).get(0);
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }
 
+    @Override
+    public Cargo retrieve(Cargo cargo) {
+        try (Connection conn = connection.open()) {
+            return conn.createQuery("select * from cargo where cargo=:cargo")
+                    .addParameter("cargo", cargo.getCargo())
+                    .executeAndFetch(Cargo.class).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    @Override
     public UUID insert(Cargo cargo) {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("insert into cargo");
@@ -40,20 +54,21 @@ public class CargoDao {
         queryBuilder.append("values");
         queryBuilder.append("(:cargo_uuid, :cargo)");
         try (Connection conn = connection.beginTransaction()) {
-            UUID dataUuid = UUID.randomUUID();
+            UUID uuid = UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
-                    .addParameter("cargo_uuid", cargo.getCargo_uuid())
+                    .addParameter("cargo_uuid", uuid)
                     .addParameter("cargo", cargo.getCargo())
                     .executeUpdate();
             conn.commit();
-            return dataUuid;
+            return uuid;
         }
     }
 
-    public Boolean delete(UUID cargoUuid) {
+    @Override
+    public Boolean delete(UUID uuid) {
         try (Connection conn = connection.open()) {
             conn.createQuery("delete from cargo where cargo_uuid=:cargo_uuid")
-                    .addParameter("cargo_uuid", cargoUuid)
+                    .addParameter("cargo_uuid", uuid)
                     .executeUpdate();
             return true;
         } catch (Sql2oException e) {
