@@ -39,13 +39,13 @@ public class SalarioDao implements Model<Salario> {
     @Override
     public Salario retrieve(Salario salario) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("select * from data where ");
+        queryBuilder.append("select * from salario where ");
         queryBuilder.append("salario_base=:salario_base ").append("and ");
         queryBuilder.append("plano_carreira=:plano_carreira ").append("and ");
         queryBuilder.append("gratificacao=:gratificacao ").append("and ");
         queryBuilder.append("beneficio=:beneficio ").append("and ");
         queryBuilder.append("abono=:abono ").append("and ");
-        queryBuilder.append("adiantamento=;adiantamento ").append("and ");
+        queryBuilder.append("adiantamento=:adiantamento ").append("and ");
         queryBuilder.append("ferias=:ferias ").append("and ");
         queryBuilder.append("decimo_terceiro=:decimo_terceiro ").append("and ");
         queryBuilder.append("abatimento=:abatimento ").append("and ");
@@ -75,15 +75,15 @@ public class SalarioDao implements Model<Salario> {
     @Override
     public UUID insert(Salario salario) {
         StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("insert into salario");
-        queryBuilder.append("values").append("(");
-        queryBuilder.append("salario_uuid").append(", ");
+        queryBuilder.append("insert into salario ");
+        queryBuilder.append("values ").append("(");
+        queryBuilder.append(":salario_uuid").append(", ");
         queryBuilder.append(":salario_base").append(", ");
         queryBuilder.append(":plano_carreira").append(", ");
         queryBuilder.append(":gratificacao").append(", ");
         queryBuilder.append(":beneficio").append(", ");
         queryBuilder.append(":abono").append(", ");
-        queryBuilder.append(";adiantamento").append(", ");
+        queryBuilder.append(":adiantamento").append(", ");
         queryBuilder.append(":ferias").append(", ");
         queryBuilder.append(":decimo_terceiro").append(", ");
         queryBuilder.append(":abatimento").append(", ");
