@@ -27,6 +27,7 @@ public class Main {
         port(getHerokuAssignedPort());
         apply();
         get("/", (req, res) -> "all good");
+
         new DataController().data();
         new CargoController().cargo();
         new SalarioController().salario();

@@ -64,9 +64,9 @@ public class DataDao implements Model<Data> {
         queryBuilder.append("values");
         queryBuilder.append("(:data_uuid, :mes, :ano)");
         try (Connection conn = connection.beginTransaction()) {
-            UUID uuid = UUID.randomUUID();
+            UUID uuid = data.getData_uuid() != null ? data.getData_uuid() : UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
-                    .addParameter("data_uuid", data.getData_uuid())
+                    .addParameter("data_uuid", uuid)
                     .addParameter("mes", data.getMes())
                     .addParameter("ano", data.getAno())
                     .executeUpdate();

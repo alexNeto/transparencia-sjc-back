@@ -54,7 +54,7 @@ public class CargoDao implements Model<Cargo> {
         queryBuilder.append("values");
         queryBuilder.append("(:cargo_uuid, :cargo)");
         try (Connection conn = connection.beginTransaction()) {
-            UUID uuid = UUID.randomUUID();
+            UUID uuid = cargo.getCargo_uuid() != null ? cargo.getCargo_uuid() : UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
                     .addParameter("cargo_uuid", uuid)
                     .addParameter("cargo", cargo.getCargo())

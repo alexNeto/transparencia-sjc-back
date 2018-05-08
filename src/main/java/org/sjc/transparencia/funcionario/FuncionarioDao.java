@@ -78,7 +78,7 @@ public class FuncionarioDao implements Model<Funcionario> {
         queryBuilder.append("values");
         queryBuilder.append("(:funcionario_uuid, :data_uuid, cargo_uuid, :salario_uuid, :nome)");
         try (Connection conn = connection.beginTransaction()) {
-            UUID uuid = UUID.randomUUID();
+            UUID uuid = funcionario.getFuncionario_uuid() != null ? funcionario.getFuncionario_uuid() : UUID.randomUUID();
             UUID data_uuid = this.dataDao.insert(funcionario.getData());
             UUID cargo_uuid = this.cargoDao.insert(funcionario.getCargo());
             UUID salario_uuid = this.salarioDao.insert(funcionario.getSalario());

@@ -91,7 +91,7 @@ public class SalarioDao implements Model<Salario> {
         queryBuilder.append(":salario_bruto").append(", ");
         queryBuilder.append(":salario_liquido ").append(");");
         try (Connection conn = connection.beginTransaction()) {
-            UUID uuid = UUID.randomUUID();
+            UUID uuid = salario.getSalario_uuid() != null ? salario.getSalario_uuid() : UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
                     .addParameter("salario_uuid", uuid)
                     .addParameter("salario_base", salario.getSalario_base())
