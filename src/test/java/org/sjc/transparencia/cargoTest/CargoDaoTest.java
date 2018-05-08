@@ -37,6 +37,11 @@ public class CargoDaoTest {
     }
 
     @Test
+    public void pegaCargo() {
+        assertEquals(this.cargo.getCargo(), this.cargoDao.retrieve(this.cargo).getCargo());
+    }
+
+    @Test
     public void pagaTodosDados() {
         assertTrue(this.cargoDao.retrieveAll() != null);
     }
