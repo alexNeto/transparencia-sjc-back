@@ -119,7 +119,7 @@ public class SalarioDao implements Model<Salario> {
                     .addParameter("salario_uuid", uuid)
                     .executeUpdate();
             return true;
-        } catch (Sql2oException e) {
+        } catch (Sql2oException | NullPointerException e) {
             return false;
         }
     }

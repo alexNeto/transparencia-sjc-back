@@ -91,10 +91,10 @@ public class Dao {
     public static StringBuilder funcionario() {
         StringBuilder funcionarioBuilder = new StringBuilder();
         funcionarioBuilder.append("create table if not exists funcionario(");
-        funcionarioBuilder.append("funcionario_uuid uuid primary key,");
-        funcionarioBuilder.append("data_uuid uuid references data(data_uuid),");
-        funcionarioBuilder.append("cargo_uuid uuid references cargo(cargo_uuid),");
-        funcionarioBuilder.append("salario_uuid uuid references salario(salario_uuid),");
+        funcionarioBuilder.append("funcionario_uuid uuid primary key, ");
+        funcionarioBuilder.append("data_uuid uuid references data, ");
+        funcionarioBuilder.append("cargo_uuid uuid references cargo, ");
+        funcionarioBuilder.append("salario_uuid uuid references salario, ");
         funcionarioBuilder.append("nome text not null");
         funcionarioBuilder.append(");");
         return funcionarioBuilder;

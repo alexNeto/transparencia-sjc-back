@@ -16,15 +16,15 @@ import java.util.UUID;
 public class FuncionarioDao implements Model<Funcionario> {
 
     private Sql2o connection;
-    private DataDao dataDao;
-    private CargoDao cargoDao;
     private SalarioDao salarioDao;
+    private CargoDao cargoDao;
+    private DataDao dataDao;
 
     public FuncionarioDao() {
         this.connection = Dao.getConnection();
-        this.dataDao = new DataDao();
-        this.cargoDao = new CargoDao();
         this.salarioDao = new SalarioDao();
+        this.cargoDao = new CargoDao();
+        this.dataDao = new DataDao();
     }
 
     @Override
@@ -75,18 +75,16 @@ public class FuncionarioDao implements Model<Funcionario> {
     public UUID insert(Funcionario funcionario) {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("insert into funcionario");
-        queryBuilder.append("values");
-        queryBuilder.append("(:funcionario_uuid, :data_uuid, cargo_uuid, :salario_uuid, :nome)");
+        queryBuilder.append("(funcionario_uuid, data_uuid, cargo_uuid, salario_uuid, nome) ");
+        queryBuilder.append("values ");
+        queryBuilder.append("(:funcionario_uuid, :data_uuid, :cargo_uuid, :salario_uuid, :nome);");
         try (Connection conn = connection.beginTransaction()) {
             UUID uuid = funcionario.getFuncionario_uuid() != null ? funcionario.getFuncionario_uuid() : UUID.randomUUID();
-            UUID data_uuid = this.dataDao.insert(funcionario.getData());
-            UUID cargo_uuid = this.cargoDao.insert(funcionario.getCargo());
-            UUID salario_uuid = this.salarioDao.insert(funcionario.getSalario());
             conn.createQuery(queryBuilder.toString())
                     .addParameter("funcionario_uuid", uuid)
-                    .addParameter("data_uuid", data_uuid)
-                    .addParameter("cargo_uuid", cargo_uuid)
-                    .addParameter("salario_uuid", salario_uuid)
+                    .addParameter("data_uuid", this.dataDao.insert(funcionario.getData()))
+                    .addParameter("cargo_uuid", this.cargoDao.insert(funcionario.getCargo()))
+                    .addParameter("salario_uuid", this.salarioDao.insert(funcionario.getSalario()))
                     .addParameter("nome", funcionario.getNome())
                     .executeUpdate();
             conn.commit();
@@ -96,14 +94,24 @@ public class FuncionarioDao implements Model<Funcionario> {
 
     @Override
     public Boolean delete(UUID uuid) {
+        Boolean result = true;
+        Funcionario funcionario = retrieveByUuid(uuid);
         try (Connection conn = connection.open()) {
-            conn.createQuery("delete from funcionario where funcionario_uuid=:funcionario_uuid cascade;")
+            conn.createQuery("delete from funcionario where funcionario_uuid=:funcionario_uuid;")
                     .addParameter("funcionario_uuid", uuid)
                     .executeUpdate();
-            return true;
         } catch (Sql2oException e) {
-            return false;
+            result = false;
         }
+        if (funcionario == null)
+            result = false;
+        if (!this.salarioDao.delete(funcionario.getSalario().getSalario_uuid()))
+            result = false;
+        if (!this.dataDao.delete(funcionario.getData().getData_uuid()))
+            result = false;
+        if (!this.cargoDao.delete(funcionario.getCargo().getCargo_uuid()))
+            result = false;
+        return result;
     }
 
     public List<Funcionario> converter(List<FuncionarioRepository> funcionariosRepositories) {
