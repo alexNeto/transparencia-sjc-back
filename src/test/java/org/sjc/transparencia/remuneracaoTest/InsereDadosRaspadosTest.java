@@ -17,11 +17,6 @@ public class InsereDadosRaspadosTest {
         this.insereDadosRaspados = new InsereDadosRaspados("https://api.myjson.com/bins/q7cq6");
     }
 
-    @After
-    public void delete() {
-        this.insereDadosRaspados.delete();
-    }
-
     @Test
     public void insere() {
         assertTrue(this.insereDadosRaspados.insere());
