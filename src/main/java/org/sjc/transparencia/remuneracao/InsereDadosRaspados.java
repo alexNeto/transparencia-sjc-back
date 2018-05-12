@@ -33,7 +33,7 @@ public class InsereDadosRaspados {
     }
 
     public JSONObject pegaJson() throws IOException {
-        return new RecebeDadosRaspados().leJsonDaUrl();
+        return new RecebeDadosRaspados("http://127.0.0.1:5000").leJsonDaUrl();
     }
 
     public UUID insereData(JSONObject dataJson) {

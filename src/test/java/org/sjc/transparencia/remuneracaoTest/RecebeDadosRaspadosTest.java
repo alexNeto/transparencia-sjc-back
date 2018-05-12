@@ -14,7 +14,7 @@ public class RecebeDadosRaspadosTest {
 
     @Before
     public void setUp() {
-        recebeDadosRaspados = new RecebeDadosRaspados();
+        recebeDadosRaspados = new RecebeDadosRaspados("https://api.myjson.com/bins/b0l32");
     }
 
     @Test

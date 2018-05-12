@@ -21,9 +21,9 @@ public class SalarioDaoTest {
     @Before
     public void setUp() {
         this.salarioDao = new SalarioDao();
-        this.salario = new Salario(salarioUuid, new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0),
-                new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0),
-                new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0), new BigDecimal(1.0));
+        this.salario = new Salario(salarioUuid, new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"),
+                new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"),
+                new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"), new BigDecimal("1.0"));
         this.salarioDao.insert(this.salario);
     }
 

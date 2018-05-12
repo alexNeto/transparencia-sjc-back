@@ -3,7 +3,6 @@ package org.sjc.transparencia;
 import org.sjc.transparencia.cargo.CargoController;
 import org.sjc.transparencia.data.DataController;
 import org.sjc.transparencia.funcionario.FuncionarioController;
-import org.sjc.transparencia.remuneracao.RemuneracaoController;
 import org.sjc.transparencia.salario.SalarioController;
 import spark.Filter;
 import spark.Spark;
@@ -33,7 +32,6 @@ public class Main {
         new CargoController().cargo();
         new SalarioController().salario();
         new FuncionarioController().funcionario();
-        new RemuneracaoController().remuneracao();
     }
 
     public static int getHerokuAssignedPort() {

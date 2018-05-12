@@ -18,7 +18,16 @@ public class RemuneracaoJsonParserTest {
 
     @Before
     public void setUp() throws IOException {
-        this.dados = new RecebeDadosRaspados().leJsonDaUrl();
+        StringBuilder jsonBulder = new StringBuilder();
+        jsonBulder.append("{ \"data\": {\"mes\": 1, \"ano\": 2018}").append(",");
+        jsonBulder.append("\"cargos\": [ \"a\", \"b\", \"c\"]").append(",");
+        jsonBulder.append("\"funcionario\": [{");
+        jsonBulder.append("\"nome\": \"ABEL YOSHINOBU TAIRA\",\"cargo\": \"ANALISTA TEC.LEG-DESIGNER GRAFICO\",");
+        jsonBulder.append("\"salario_base\": 5021.76,\"plano_carreira\": 150.65,\"gratificacao\": 044.35,\"beneficio\": 374,");
+        jsonBulder.append("\"abono\": 0,\"adiantamento\": 0,\"ferias\": 0,\"decimo_terceiro\": 0,\"abatimento\": 0,");
+        jsonBulder.append("\"descontos\": 2702.6,\"salario_bruto\": 6590.76,\"salario_liquido\": 3888.16");
+        jsonBulder.append("}]}");
+        this.dados = new JSONObject(jsonBulder.toString());
         this.remuneracaoJsonParser = new RemuneracaoJsonParser();
     }
 
