@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         apply();
-        get("/", (req, res) -> "all good");
+        get("/", (req, res) -> "{\"content\": \"all good\"}");
 
         new DataController().data();
         new CargoController().cargo();

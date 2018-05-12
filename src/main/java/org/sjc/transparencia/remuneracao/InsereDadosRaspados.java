@@ -17,6 +17,11 @@ public class InsereDadosRaspados {
 
     private RemuneracaoJsonParser parser = new RemuneracaoJsonParser();
     private CargoDao cargoDao = new CargoDao();
+    private String url;
+
+    public InsereDadosRaspados(String url) {
+        this.url = url;
+    }
 
     public Boolean insere() {
         Boolean result;
@@ -33,7 +38,7 @@ public class InsereDadosRaspados {
     }
 
     public JSONObject pegaJson() throws IOException {
-        return new RecebeDadosRaspados("http://127.0.0.1:5000").leJsonDaUrl();
+        return new RecebeDadosRaspados(this.url).leJsonDaUrl();
     }
 
     public UUID insereData(JSONObject dataJson) {
@@ -55,9 +60,11 @@ public class InsereDadosRaspados {
     public Boolean insereFuncionarios(UUID dataUuid, JSONArray funcionarioJsonArray) {
         Boolean result = true;
         FuncionarioDao funcionarioDao = new FuncionarioDao();
+        Data data = new Data();
         try {
             List<Funcionario> funcionarioList = this.parser.preparaFuncionario(funcionarioJsonArray);
             funcionarioList.forEach(funcionario -> {
+                funcionario.setData(data);
                 funcionario.getCargo().setCargo_uuid(this.cargoDao.retrieve(funcionario.getCargo()).getCargo_uuid());
                 funcionario.getData().setData_uuid(dataUuid);
                 funcionarioDao.insert(funcionario);

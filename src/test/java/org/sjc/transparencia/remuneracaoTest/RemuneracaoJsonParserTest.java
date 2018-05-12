@@ -3,7 +3,6 @@ package org.sjc.transparencia.remuneracaoTest;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.sjc.transparencia.remuneracao.RecebeDadosRaspados;
 import org.sjc.transparencia.remuneracao.RemuneracaoJsonParser;
 
 import java.io.IOException;

@@ -8,6 +8,12 @@ public class Data {
     private Integer mes;
     private Integer ano;
 
+    public Data() {
+        this.data_uuid = null;
+        this.mes = null;
+        this.ano = null;
+    }
+
     public Data(UUID data_uuid, Integer mes, Integer ano) {
         this.data_uuid = data_uuid;
         this.mes = mes;
