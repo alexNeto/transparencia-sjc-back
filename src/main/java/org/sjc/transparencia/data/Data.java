@@ -25,4 +25,8 @@ public class Data {
     public Integer getAno() {
         return ano;
     }
+
+    public void setData_uuid(UUID data_uuid) {
+        this.data_uuid = data_uuid;
+    }
 }

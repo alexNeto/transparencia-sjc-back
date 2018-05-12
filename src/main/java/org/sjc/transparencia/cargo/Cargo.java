@@ -7,7 +7,7 @@ public class Cargo {
     private UUID cargo_uuid;
     private String cargo;
 
-    public Cargo(UUID cargo_uuid, String cargo){
+    public Cargo(UUID cargo_uuid, String cargo) {
         this.cargo_uuid = cargo_uuid;
         this.cargo = cargo;
     }
@@ -18,5 +18,9 @@ public class Cargo {
 
     public String getCargo() {
         return cargo;
+    }
+
+    public void setCargo_uuid(UUID cargo_uuid) {
+        this.cargo_uuid = cargo_uuid;
     }
 }
