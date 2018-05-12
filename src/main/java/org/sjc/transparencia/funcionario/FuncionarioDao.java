@@ -82,8 +82,8 @@ public class FuncionarioDao implements Model<Funcionario> {
             UUID uuid = funcionario.getFuncionario_uuid() != null ? funcionario.getFuncionario_uuid() : UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
                     .addParameter("funcionario_uuid", uuid)
-                    .addParameter("data_uuid", this.dataDao.insert(funcionario.getData()))
-                    .addParameter("cargo_uuid", this.cargoDao.insert(funcionario.getCargo()))
+                    .addParameter("data_uuid", funcionario.getData().getData_uuid())
+                    .addParameter("cargo_uuid", funcionario.getCargo().getCargo_uuid())
                     .addParameter("salario_uuid", this.salarioDao.insert(funcionario.getSalario()))
                     .addParameter("nome", funcionario.getNome())
                     .executeUpdate();
