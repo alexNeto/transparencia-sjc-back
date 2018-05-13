@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class MainTest {
 
     @Test(timeout = 3000)
-    public void testa_se_main_não_lanca_excecao() {
+    public void testa_se_main_nao_lanca_excecao() {
         Main.main(new String[]{null, "https://api.myjson.com/bins/1e154m"});
     }
 

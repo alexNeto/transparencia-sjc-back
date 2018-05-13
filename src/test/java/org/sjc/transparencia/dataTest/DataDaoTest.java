@@ -8,8 +8,7 @@ import org.sjc.transparencia.data.DataDao;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DataDaoTest {
 
@@ -20,7 +19,7 @@ public class DataDaoTest {
     @Before
     public void setUp() {
         this.dataDao = new DataDao();
-        this.data = new Data(dataUuid, 01, 2018);
+        this.data = new Data(dataUuid, 1, 2018);
         this.dataDao.insert(this.data);
     }
 
@@ -32,17 +31,17 @@ public class DataDaoTest {
     @Test
     public void insereDatas() {
         this.dataDao.delete(this.data.getData_uuid());
-        assertTrue(this.dataDao.insert(this.data) != null);
+        assertNotNull(this.dataDao.insert(this.data));
     }
 
     @Test
     public void pagaTodosDados() {
-        assertTrue(this.dataDao.retrieveAll() != null);
+        assertNotNull(this.dataDao.retrieveAll());
     }
 
     @Test
     public void pagaTodosDadosPorAno() {
-        assertTrue(this.dataDao.retrieveByYear(2018) != null);
+        assertNotNull(this.dataDao.retrieveByYear(2018));
     }
 
     @Test
@@ -54,12 +53,12 @@ public class DataDaoTest {
 
     @Test
     public void naoPegaPorUuidInexistentes() {
-        assertTrue(this.dataDao.retrieveByUuid(UUID.randomUUID()) == null);
+        assertNull(this.dataDao.retrieveByUuid(UUID.randomUUID()));
     }
 
     @Test
     public void pegaData() {
-        assertTrue(this.dataDao.retrieve(data) != null);
+        assertNotNull(this.dataDao.retrieve(data));
     }
 
     @Test

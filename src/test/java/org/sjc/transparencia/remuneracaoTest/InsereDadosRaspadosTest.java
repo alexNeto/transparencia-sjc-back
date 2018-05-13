@@ -38,34 +38,12 @@ public class InsereDadosRaspadosTest {
     public void apagaDados() throws IOException {
         JSONObject dadosJson = new RecebeDadosRaspados(this.url).leJsonDaUrl();
         this.parser = new RemuneracaoJsonParser();
-        this.apagaData(dadosJson.getJSONObject("data"));
-        this.apagaCargos(dadosJson.getJSONArray("cargos"));
         this.apagaFuncionarios(dadosJson.getJSONArray("funcionario"));
     }
 
     @Test
     public void insere() {
         assertTrue(this.insereDadosRaspados.insere());
-    }
-
-    private void apagaData(JSONObject dataJson) {
-        Data data = this.parser.preparaData(dataJson);
-        DataDao dataDao = new DataDao();
-        Data dataDoBD = dataDao.retrieve(data);
-        if (dataDoBD != null && dataDoBD.getData_uuid() != null)
-            dataDao.delete(dataDoBD.getData_uuid());
-    }
-
-    private void apagaCargos(JSONArray cargos) {
-        List<Cargo> cargoList = this.parser.preparaCargos(cargos);
-        cargoList.forEach(this::deletaCargo);
-    }
-
-    private void deletaCargo(Cargo cargo) {
-        CargoDao cargoDao = new CargoDao();
-        Cargo cargoDoBD = cargoDao.retrieve(cargo);
-        if (cargoDoBD != null && cargoDoBD.getCargo_uuid() != null)
-            cargoDao.delete(cargoDoBD.getCargo_uuid());
     }
 
     private void apagaFuncionarios(JSONArray funcionarios) {

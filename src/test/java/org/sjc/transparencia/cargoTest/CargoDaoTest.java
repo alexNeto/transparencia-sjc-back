@@ -8,8 +8,7 @@ import org.sjc.transparencia.cargo.CargoDao;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CargoDaoTest {
 
@@ -33,7 +32,7 @@ public class CargoDaoTest {
     @Test
     public void insereDatas() {
         this.cargoDao.delete(this.cargo.getCargo_uuid());
-        assertTrue(this.cargoDao.insert(this.cargo) != null);
+        assertNotNull(this.cargoDao.insert(this.cargo));
     }
 
     @Test
@@ -43,7 +42,7 @@ public class CargoDaoTest {
 
     @Test
     public void pagaTodosDados() {
-        assertTrue(this.cargoDao.retrieveAll() != null);
+        assertNotNull(this.cargoDao.retrieveAll());
     }
 
     @Test
@@ -54,7 +53,7 @@ public class CargoDaoTest {
 
     @Test
     public void naoPegaPorUuidInexistentes() {
-        assertTrue(this.cargoDao.retrieveByUuid(UUID.randomUUID()) == null);
+        assertNull(this.cargoDao.retrieveByUuid(UUID.randomUUID()));
     }
 
     @Test

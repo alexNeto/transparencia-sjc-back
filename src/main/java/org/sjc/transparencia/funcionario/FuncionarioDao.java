@@ -100,6 +100,7 @@ public class FuncionarioDao implements Model<Funcionario> {
             conn.createQuery("delete from funcionario where funcionario_uuid=:funcionario_uuid;")
                     .addParameter("funcionario_uuid", uuid)
                     .executeUpdate();
+            conn.commit();
         } catch (Sql2oException e) {
             result = false;
         }

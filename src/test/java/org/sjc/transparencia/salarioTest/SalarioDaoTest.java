@@ -9,8 +9,7 @@ import org.sjc.transparencia.salario.SalarioDao;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SalarioDaoTest {
 
@@ -35,12 +34,12 @@ public class SalarioDaoTest {
     @Test
     public void insereDatas() {
         this.salarioDao.delete(this.salario.getSalario_uuid());
-        assertTrue(this.salarioDao.insert(this.salario) != null);
+        assertNotNull(this.salarioDao.insert(this.salario));
     }
 
     @Test
     public void pagaTodosDados() {
-        assertTrue(this.salarioDao.retrieveAll() != null);
+        assertNotNull(this.salarioDao.retrieveAll());
     }
 
     @Test
@@ -51,12 +50,12 @@ public class SalarioDaoTest {
 
     @Test
     public void naoPegaPorUuidInexistentes() {
-        assertTrue(this.salarioDao.retrieveByUuid(UUID.randomUUID()) == null);
+        assertNull(this.salarioDao.retrieveByUuid(UUID.randomUUID()));
     }
 
     @Test
     public void pegaData() {
-        assertTrue(this.salarioDao.retrieve(salario) != null);
+        assertNotNull(this.salarioDao.retrieve(salario));
     }
 
     @Test

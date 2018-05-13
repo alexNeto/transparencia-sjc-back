@@ -7,8 +7,7 @@ import org.sjc.transparencia.remuneracao.RemuneracaoJsonParser;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class RemuneracaoJsonParserTest {
 
@@ -16,17 +15,16 @@ public class RemuneracaoJsonParserTest {
     private RemuneracaoJsonParser remuneracaoJsonParser;
 
     @Before
-    public void setUp() throws IOException {
-        StringBuilder jsonBulder = new StringBuilder();
-        jsonBulder.append("{ \"data\": {\"mes\": 1, \"ano\": 2018}").append(",");
-        jsonBulder.append("\"cargos\": [ \"a\", \"b\", \"c\"]").append(",");
-        jsonBulder.append("\"funcionario\": [{");
-        jsonBulder.append("\"nome\": \"ABEL YOSHINOBU TAIRA\",\"cargo\": \"ANALISTA TEC.LEG-DESIGNER GRAFICO\",");
-        jsonBulder.append("\"salario_base\": 5021.76,\"plano_carreira\": 150.65,\"gratificacao\": 044.35,\"beneficio\": 374,");
-        jsonBulder.append("\"abono\": 0,\"adiantamento\": 0,\"ferias\": 0,\"decimo_terceiro\": 0,\"abatimento\": 0,");
-        jsonBulder.append("\"descontos\": 2702.6,\"salario_bruto\": 6590.76,\"salario_liquido\": 3888.16");
-        jsonBulder.append("}]}");
-        this.dados = new JSONObject(jsonBulder.toString());
+    public void setUp() {
+        String jsonBulder = "{ \"data\": {\"mes\": 1, \"ano\": 2018}" + "," +
+                "\"cargos\": [ \"a\", \"b\", \"c\"]" + "," +
+                "\"funcionario\": [{" +
+                "\"nome\": \"ABEL YOSHINOBU TAIRA\",\"cargo\": \"ANALISTA TEC.LEG-DESIGNER GRAFICO\"," +
+                "\"salario_base\": 5021.76,\"plano_carreira\": 150.65,\"gratificacao\": 044.35,\"beneficio\": 374," +
+                "\"abono\": 0,\"adiantamento\": 0,\"ferias\": 0,\"decimo_terceiro\": 0,\"abatimento\": 0," +
+                "\"descontos\": 2702.6,\"salario_bruto\": 6590.76,\"salario_liquido\": 3888.16" +
+                "}]}";
+        this.dados = new JSONObject(jsonBulder);
         this.remuneracaoJsonParser = new RemuneracaoJsonParser();
     }
 
@@ -37,7 +35,7 @@ public class RemuneracaoJsonParserTest {
 
     @Test
     public void preparaData() {
-        assertTrue(this.remuneracaoJsonParser.preparaData(this.dados.getJSONObject("data")) != null);
+        assertNotNull(this.remuneracaoJsonParser.preparaData(this.dados.getJSONObject("data")));
     }
 
     @Test

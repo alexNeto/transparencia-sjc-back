@@ -3,14 +3,13 @@ package org.sjc.transparencia;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DaoTest {
 
     @Test
     public void verificaConexao() {
-        assertTrue(Dao.getConnection() != null);
+        assertNotNull(Dao.getConnection());
     }
 
     @Test
