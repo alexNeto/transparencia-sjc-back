@@ -66,7 +66,7 @@ public class FuncionarioDao implements Model<Funcionario> {
                     .addParameter("salario_uuid", funcionario.getSalario().getSalario_uuid())
                     .executeAndFetch(FuncionarioRepository.class);
             return converter(funcionariosRepositories).get(0);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             return null;
         }
     }

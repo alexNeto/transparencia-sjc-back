@@ -63,7 +63,7 @@ public class Dao {
         StringBuilder cargoBuilder = new StringBuilder();
         cargoBuilder.append("create table if not exists cargo(");
         cargoBuilder.append("cargo_uuid uuid primary key,");
-        cargoBuilder.append("cargo text");
+        cargoBuilder.append("cargo text unique");
         cargoBuilder.append(");");
         return cargoBuilder;
     }

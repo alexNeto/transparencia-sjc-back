@@ -50,7 +50,10 @@ public class InsereDadosRaspados {
         Boolean result = true;
         try {
             List<Cargo> cargoList = this.parser.preparaCargos(cargoJsonArray);
-            cargoList.forEach(cargo -> this.cargoDao.insert(cargo));
+            cargoList.forEach(cargo -> {
+                if (cargoDao.retrieve(cargo) == null)
+                    this.cargoDao.insert(cargo);
+            });
         } catch (Exception e) {
             result = false;
         }
@@ -73,5 +76,9 @@ public class InsereDadosRaspados {
             result = false;
         }
         return result;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

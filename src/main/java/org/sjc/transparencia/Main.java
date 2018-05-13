@@ -1,13 +1,18 @@
 package org.sjc.transparencia;
 
 import org.sjc.transparencia.cargo.CargoController;
+import org.sjc.transparencia.data.Data;
 import org.sjc.transparencia.data.DataController;
+import org.sjc.transparencia.data.DataDao;
 import org.sjc.transparencia.funcionario.FuncionarioController;
+import org.sjc.transparencia.remuneracao.InsereDadosRaspados;
 import org.sjc.transparencia.salario.SalarioController;
 import spark.Filter;
 import spark.Spark;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
@@ -15,6 +20,7 @@ import static spark.Spark.port;
 public class Main {
 
     private static final HashMap<String, String> corsHeaders = new HashMap<>();
+    private static String[] argumentos;
 
     static {
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
@@ -24,6 +30,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        argumentos = args;
         port(getHerokuAssignedPort());
         apply();
         get("/", (req, res) -> "{\"content\": \"all good\"}");
@@ -32,6 +39,30 @@ public class Main {
         new CargoController().cargo();
         new SalarioController().salario();
         new FuncionarioController().funcionario();
+
+        if (haNovosDadosDisponiveis()) {
+            atualizaDados();
+        }
+    }
+
+    private static boolean haNovosDadosDisponiveis() {
+        Boolean result = true;
+        List<Data> dataList = new DataDao().retrieveAll();
+        Calendar dataDoMesPassado = Calendar.getInstance();
+        dataDoMesPassado.add(Calendar.MONTH, -1);
+        for (Data data : dataList) {
+            if (data.getMes() == dataDoMesPassado.get(Calendar.MONTH) + 1) {
+                if (data.getAno() == dataDoMesPassado.get(Calendar.YEAR)) {
+                    result = false;
+                }
+            }
+        }
+        return result;
+    }
+
+    private static void atualizaDados() {
+        InsereDadosRaspados insereDadosRaspados = new InsereDadosRaspados("http://localhost:5000/salario_camara_municipal");
+        insereDadosRaspados.insere();
     }
 
     public static int getHerokuAssignedPort() {

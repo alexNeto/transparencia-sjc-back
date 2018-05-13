@@ -6,6 +6,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,15 +54,15 @@ public class CargoDao implements Model<Cargo> {
         queryBuilder.append("(cargo_uuid, cargo) ");
         queryBuilder.append("values");
         queryBuilder.append("(:cargo_uuid, :cargo)");
+        UUID uuid = cargo.getCargo_uuid() != null ? cargo.getCargo_uuid() : UUID.randomUUID();
         try (Connection conn = connection.beginTransaction()) {
-            UUID uuid = cargo.getCargo_uuid() != null ? cargo.getCargo_uuid() : UUID.randomUUID();
             conn.createQuery(queryBuilder.toString())
                     .addParameter("cargo_uuid", uuid)
                     .addParameter("cargo", cargo.getCargo())
                     .executeUpdate();
             conn.commit();
-            return uuid;
         }
+        return uuid;
     }
 
     @Override

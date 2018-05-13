@@ -9,9 +9,11 @@ public class Data {
     private Integer ano;
 
     public Data() {
-        this.data_uuid = null;
-        this.mes = null;
-        this.ano = null;
+        this(null, null, null);
+    }
+
+    public Data(Integer mes, Integer ano) {
+        this(null, mes, ano);
     }
 
     public Data(UUID data_uuid, Integer mes, Integer ano) {
