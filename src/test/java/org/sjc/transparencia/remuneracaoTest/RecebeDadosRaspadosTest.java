@@ -7,7 +7,6 @@ import org.sjc.transparencia.remuneracao.RecebeDadosRaspados;
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
 
 public class RecebeDadosRaspadosTest {
 

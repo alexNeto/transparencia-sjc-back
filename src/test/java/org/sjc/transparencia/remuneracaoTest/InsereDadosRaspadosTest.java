@@ -5,10 +5,6 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sjc.transparencia.cargo.Cargo;
-import org.sjc.transparencia.cargo.CargoDao;
-import org.sjc.transparencia.data.Data;
-import org.sjc.transparencia.data.DataDao;
 import org.sjc.transparencia.funcionario.Funcionario;
 import org.sjc.transparencia.funcionario.FuncionarioDao;
 import org.sjc.transparencia.remuneracao.InsereDadosRaspados;
@@ -16,9 +12,7 @@ import org.sjc.transparencia.remuneracao.RecebeDadosRaspados;
 import org.sjc.transparencia.remuneracao.RemuneracaoJsonParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.assertTrue;
 
