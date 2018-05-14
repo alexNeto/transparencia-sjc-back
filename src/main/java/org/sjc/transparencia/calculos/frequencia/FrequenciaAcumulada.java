@@ -1,4 +1,4 @@
-package org.sjc.transparencia.calculos;
+package org.sjc.transparencia.calculos.frequencia;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,6 +21,4 @@ public class FrequenciaAcumulada extends Frequencia {
         }
         return tabelaFrequenciaList;
     }
-
-
 }

@@ -1,4 +1,6 @@
-package org.sjc.transparencia.calculos;
+package org.sjc.transparencia.calculos.frequencia;
+
+import sun.tools.jconsole.Tab;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,16 +12,16 @@ public class Frequencia {
 
     private List<BigDecimal> dadosList;
     private Integer numeroClasses;
-    private Integer tamanhoDados;
+    private Integer somatorioFrequenciaSimples;
 
     public Frequencia(List<BigDecimal> dadosList) {
         this.dadosList = dadosList;
-        this.tamanhoDados = this.dadosList.size();
+        this.somatorioFrequenciaSimples = this.dadosList.size();
         this.numeroClasses = this.contaClasses();
     }
 
     public Integer contaClasses() {
-        return (int) ceil(1 + 3.3 * log(this.tamanhoDados));
+        return (int) ceil(1 + 3.3 * log(this.somatorioFrequenciaSimples));
     }
 
     public Integer calculaAmplitudeDasClasses() {
@@ -29,23 +31,26 @@ public class Frequencia {
 
     public List<TabelaFrequencia> calculaFrequencia() {
         List<TabelaFrequencia> tabelaFrequenciaList = new ArrayList<>();
-        TabelaFrequencia tabelaFrequencia;
         Integer amplitude = this.calculaAmplitudeDasClasses();
         Integer xMin = this.xMin();
         Integer xMax = xMin;
         for (int i = 0; i < this.numeroClasses; i++) {
             xMax += amplitude;
-            tabelaFrequencia = new TabelaFrequencia(xMin, xMax);
-            for (BigDecimal dado : dadosList) {
-                if ((dado.intValue() >= xMin) && (dado.intValue() < xMax)) {
-                    tabelaFrequencia.adicionaFrequenciaSimples();
-                }
-            }
-            tabelaFrequencia.calculaFrequenciaRelativa(this.tamanhoDados);
-            tabelaFrequenciaList.add(tabelaFrequencia);
+            tabelaFrequenciaList.add(this.adicionaFrequenciaParaIntervalo(xMin, xMax));
             xMin = xMax;
         }
         return tabelaFrequenciaList;
+    }
+
+    public TabelaFrequencia adicionaFrequenciaParaIntervalo(Integer xMin, Integer xMax) {
+        TabelaFrequencia tabelaFrequencia = new TabelaFrequencia(xMin, xMax);
+        for (BigDecimal dado : dadosList) {
+            if ((dado.intValue() >= xMin) && (dado.intValue() < xMax)) {
+                tabelaFrequencia.adicionaFrequenciaSimples();
+            }
+        }
+        tabelaFrequencia.calculaFrequenciaRelativa(this.somatorioFrequenciaSimples);
+        return tabelaFrequencia;
     }
 
     public Integer xMin() {
@@ -53,7 +58,7 @@ public class Frequencia {
     }
 
     public Integer xMax() {
-        return (int) floor(this.dadosList.get(this.tamanhoDados - 1).doubleValue());
+        return (int) floor(this.dadosList.get(this.somatorioFrequenciaSimples - 1).doubleValue());
     }
 
     private void ordenaLista() {
