@@ -10,14 +10,6 @@ public class FuncionarioRepository {
     private UUID salario_uuid;
     private String nome;
 
-    public FuncionarioRepository(UUID funcionario_uuid, UUID data_uuid, UUID cargo_uuid, UUID salario_uuid, String nome) {
-        this.funcionario_uuid = funcionario_uuid;
-        this.data_uuid = data_uuid;
-        this.cargo_uuid = cargo_uuid;
-        this.salario_uuid = salario_uuid;
-        this.nome = nome;
-    }
-
     public UUID getFuncionario_uuid() {
         return funcionario_uuid;
     }
