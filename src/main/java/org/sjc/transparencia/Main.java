@@ -1,5 +1,6 @@
 package org.sjc.transparencia;
 
+import org.sjc.transparencia.calculos.frequencia.FrequenciaController;
 import org.sjc.transparencia.cargo.CargoController;
 import org.sjc.transparencia.data.Data;
 import org.sjc.transparencia.data.DataController;
@@ -39,6 +40,7 @@ public class Main {
         new CargoController().cargo();
         new SalarioController().salario();
         new FuncionarioController().funcionario();
+        new FrequenciaController().frequencia();
 
         if (haNovosDadosDisponiveis()) {
             atualizaDados();
