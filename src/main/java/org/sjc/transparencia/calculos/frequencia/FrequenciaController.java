@@ -1,5 +1,7 @@
 package org.sjc.transparencia.calculos.frequencia;
 
+import spark.Spark;
+
 import static spark.Spark.get;
 
 public class FrequenciaController {
@@ -11,6 +13,7 @@ public class FrequenciaController {
     }
 
     public void frequencia() {
+
         get("/remuneracao", (req, res) ->
                 this.frequenciaModel.getFrequencias());
 
