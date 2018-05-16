@@ -1,13 +1,12 @@
 package org.sjc.transparencia.calculos.frequencia;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class FrequenciaDto {
 
     private String cargo;
     private String nome;
-    private BigDecimal salario;
+    private String salario;
     private Integer somaFrequenciaSimples;
     private List<TabelaFrequencia> frequencia;
 
@@ -27,11 +26,11 @@ public class FrequenciaDto {
         this.nome = nome;
     }
 
-    public BigDecimal getSalario() {
+    public String getSalario() {
         return salario;
     }
 
-    public void setSalario(BigDecimal salario) {
+    public void setSalario(String salario) {
         this.salario = salario;
     }
 
