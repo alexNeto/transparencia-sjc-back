@@ -1,4 +1,6 @@
-package org.sjc.transparencia.calculos.frequencia;
+package org.sjc.transparencia.frequencia.calculos;
+
+import org.sjc.transparencia.frequencia.TabelaFrequencia;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,25 +8,16 @@ import java.util.List;
 
 import static java.lang.Math.*;
 
-public class Frequencia {
+public class FrequenciaSimples {
 
     private List<BigDecimal> dadosList;
     private Integer numeroClasses;
     private Integer somatorioFrequenciaSimples;
 
-    public Frequencia(List<BigDecimal> dadosList) {
+    public FrequenciaSimples(List<BigDecimal> dadosList) {
         this.dadosList = dadosList;
         this.somatorioFrequenciaSimples = this.dadosList.size();
         this.numeroClasses = this.contaClasses();
-    }
-
-    public Integer contaClasses() {
-        return (int) ceil(1 + 3.3 * log(this.somatorioFrequenciaSimples));
-    }
-
-    public Integer calculaAmplitudeDasClasses() {
-        this.ordenaLista();
-        return (int) ceil((this.xMax() - this.xMin()) / this.numeroClasses);
     }
 
     public List<TabelaFrequencia> calculaFrequencia() {
@@ -50,17 +43,4 @@ public class Frequencia {
         tabelaFrequencia.calculaFrequenciaRelativa(this.somatorioFrequenciaSimples);
         return tabelaFrequencia;
     }
-
-    public Integer xMin() {
-        return (int) round(this.dadosList.get(0).doubleValue());
-    }
-
-    public Integer xMax() {
-        return (int) floor(this.dadosList.get(this.somatorioFrequenciaSimples - 1).doubleValue());
-    }
-
-    private void ordenaLista() {
-        this.dadosList.sort(BigDecimal::compareTo);
-    }
-
 }

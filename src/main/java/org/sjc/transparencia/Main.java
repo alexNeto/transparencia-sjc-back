@@ -1,6 +1,6 @@
 package org.sjc.transparencia;
 
-import org.sjc.transparencia.calculos.frequencia.FrequenciaController;
+import org.sjc.transparencia.frequencia.FrequenciaController;
 import org.sjc.transparencia.cargo.CargoController;
 import org.sjc.transparencia.data.Data;
 import org.sjc.transparencia.data.DataController;

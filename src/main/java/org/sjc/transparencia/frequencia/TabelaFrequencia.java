@@ -1,4 +1,4 @@
-package org.sjc.transparencia.calculos.frequencia;
+package org.sjc.transparencia.frequencia;
 
 public class TabelaFrequencia {
     private Integer xMin;
