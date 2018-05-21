@@ -1,7 +1,7 @@
 package org.sjc.transparencia.frequencia;
 
 import com.google.gson.Gson;
-import org.sjc.transparencia.frequencia.calculos.FrequenciaAcumulada;
+import org.sjc.transparencia.frequencia.calculos.CalculaFrequencia;
 import org.sjc.transparencia.funcionario.Funcionario;
 import org.sjc.transparencia.funcionario.FuncionarioDao;
 
@@ -26,20 +26,18 @@ public class FrequenciaModel {
         FrequenciaDto frequenciaDto;
         for (TipoSalario salario : TipoSalario.values()) {
             frequenciaDto = new FrequenciaDto();
-            frequenciaDto.setFrequencia(new FrequenciaAcumulada(
-                    this.criaListaParaSalarioSelecionado(funcionarioList, salario)).calculaFrequenciaAcumulada());
+            frequenciaDto.setFrequencia(new CalculaFrequencia(
+                    this.criaListaParaSalarioSelecionado(funcionarioList, salario)).calcula());
             frequenciaDto.setCargo("todos");
             frequenciaDto.setNome("todos");
             frequenciaDto.setSalario(salario.toString());
             frequencia.add(frequenciaDto);
         }
-
         return gson.toJson(frequencia);
     }
 
     private List<BigDecimal> criaListaParaSalarioSelecionado(List<Funcionario> funcionarioList, TipoSalario salario) {
         List<BigDecimal> salarioList = new ArrayList<>();
-
         switch (salario) {
             case SALARIO_BASE:
                 funcionarioList.forEach(funcionario -> salarioList.add(funcionario.getSalario().getSalario_base()));
